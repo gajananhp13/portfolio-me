@@ -35,6 +35,7 @@ import {
   SiLeetcode,
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
+import Image from "next/image";
 
 // @ts-ignore
 import { Splide, SplideSlide } from "@splidejs/react-splide";
