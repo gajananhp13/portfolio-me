@@ -238,12 +238,12 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <SiVite />,
   },
-  openai: {
-    title: "OpenAI",
-    bg: "black",
-    fg: "white",
-    icon: <img src="assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI" />,
-  },
+     openai: {
+     title: "OpenAI",
+     bg: "black",
+     fg: "white",
+     icon: <Image src="assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI" width={24} height={24} />,
+   },
   netlify: {
     title: "Netlify",
     bg: "black",
@@ -274,12 +274,12 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <SiApachemaven />,
   },
-  java: {
-    title: "Java",
-    bg: "black",
-    fg: "white",
-    icon: <img src="assets/icons/icons8-java.svg" alt="Java" />,
-  },
+     java: {
+     title: "Java",
+     bg: "black",
+     fg: "white",
+     icon: <Image src="assets/icons/icons8-java.svg" alt="Java" width={24} height={24} />,
+   },
   cplusplus: {
     title: "C++",
     bg: "black",
@@ -380,8 +380,8 @@ const projects: Project[] = [
           <TypographyH3 className="my-4 mt-8">Smart Recommendations</TypographyH3>
           <p className="font-mono mb-2">
             BeachRecs uses advanced recommendation algorithms to help you find the ideal
-            beach based on your preferences. Whether you're looking for surfing spots,
-            family-friendly beaches, or secluded getaways, we've got you covered.
+             beach based on your preferences. Whether you&#39;re looking for surfing spots,
+             family-friendly beaches, or secluded getaways, we&#39;ve got you covered.
           </p>
           <SlideShow
             images={[
