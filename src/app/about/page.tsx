@@ -252,11 +252,13 @@ function Page() {
           >
             <div className="flex flex-row lg:flex-col items-center">
               <div className="flex justify-center items-center lg:w-full lg:aspect-square bg-zinc-800 rounded-xl lg:mb-5">
-                <img
-                  className="rounded-full p-4 lg:p-10 w-[100px] md:w-[150px] lg:w-[200px] aspect-square  bg-zinc-800"
-                  alt="me"
-                  src="/assets/me.jpg"
-                />
+                 <Image
+                   src="/assets/me.jpg"
+                   alt="me"
+                   width={200}
+                   height={200}
+                   className="rounded-full p-4 lg:p-10 w-[100px] md:w-[150px] lg:w-[200px] aspect-square  bg-zinc-800"
+                 />
               </div>
               <div className="flex flex-col gap-3 lg:items-center ml-10 md:ml-20 lg:ml-0">
                 <p className="text-center text-xl">Gajanan Patange</p>
