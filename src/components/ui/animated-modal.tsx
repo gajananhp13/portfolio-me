@@ -70,20 +70,20 @@ export const ModalBody = ({
 }) => {
   const { open } = useModal();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") setOpen(false);
-      });
-    }
-  }, []);
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-  }, [open]);
+   useEffect(() => {
+     if (typeof window !== "undefined") {
+       document.addEventListener("keydown", (e) => {
+         if (e.key === "Escape") setOpen(false);
+       });
+     }
+   }, [setOpen]);
+   useEffect(() => {
+     if (open) {
+       document.body.style.overflow = "hidden";
+     } else {
+       document.body.style.overflow = "auto";
+     }
+   }, [open]);
 
   const modalRef = useRef(null);
   const { setOpen } = useModal();

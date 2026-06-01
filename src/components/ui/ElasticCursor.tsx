@@ -84,100 +84,100 @@ function ElasticCursor() {
   const vel = useInstance(() => ({ x: 0, y: 0 }));
   const set = useInstance();
 
-  // Set GSAP quick setter Values on useLayoutEffect Update
-  useLayoutEffect(() => {
-    set.x = gsap.quickSetter(jellyRef.current, "x", "px");
-    set.y = gsap.quickSetter(jellyRef.current, "y", "px");
-    set.r = gsap.quickSetter(jellyRef.current, "rotate", "deg");
-    set.sx = gsap.quickSetter(jellyRef.current, "scaleX");
-    set.sy = gsap.quickSetter(jellyRef.current, "scaleY");
-    set.width = gsap.quickSetter(jellyRef.current, "width", "px");
-  }, []);
+   // Set GSAP quick setter Values on useLayoutEffect Update
+   useLayoutEffect(() => {
+     set.x = gsap.quickSetter(jellyRef.current, "x", "px");
+     set.y = gsap.quickSetter(jellyRef.current, "y", "px");
+     set.r = gsap.quickSetter(jellyRef.current, "rotate", "deg");
+     set.sx = gsap.quickSetter(jellyRef.current, "scaleX");
+     set.sy = gsap.quickSetter(jellyRef.current, "scaleY");
+     set.width = gsap.quickSetter(jellyRef.current, "width", "px");
+   }, [set]);
 
-  // Start Animation loop
-  const loop = useCallback(() => {
-    if (!set.width || !set.sx || !set.sy || !set.r) return;
-    // Calculate angle and scale based on velocity
-    var rotation = getAngle(+vel.x, +vel.y); // Mouse Move Angle
-    var scale = getScale(+vel.x, +vel.y); // Blob Squeeze Amount
+   // Start Animation loop
+   const loop = useCallback(() => {
+     if (!set.width || !set.sx || !set.sy || !set.r) return;
+     // Calculate angle and scale based on velocity
+     var rotation = getAngle(+vel.x, +vel.y); // Mouse Move Angle
+     var scale = getScale(+vel.x, +vel.y); // Blob Squeeze Amount
 
-    // Set GSAP quick setter Values on Loop Function
-    if (!isHovering && !isLoading) {
-      set.x(pos.x);
-      set.y(pos.y);
-      set.width(50 + scale * 300);
-      set.r(rotation);
-      set.sx(1 + scale);
-      set.sy(1 - scale * 2);
-    } else {
-      set.r(0);
-    }
-  }, [isHovering, isLoading]);
+     // Set GSAP quick setter Values on Loop Function
+     if (!isHovering && !isLoading) {
+       set.x(pos.x);
+       set.y(pos.y);
+       set.width(50 + scale * 300);
+       set.r(rotation);
+       set.sx(1 + scale);
+       set.sy(1 - scale * 2);
+     } else {
+       set.r(0);
+     }
+   }, [isHovering, isLoading, pos.x, pos.y, set, vel.x, vel.y]);
 
   const [cursorMoved, setCursorMoved] = useState(false);
-  // Run on Mouse Move
-  useLayoutEffect(() => {
-    if (isMobile) return;
-    // Caluclate Everything Function
-    const setFromEvent = (e: MouseEvent) => {
-      if (!jellyRef.current) return;
-      if (!cursorMoved) {
-        setCursorMoved(true);
-      }
-      const el = e.target as HTMLElement;
-      const hoverElemRect = getRekt(el);
-      if (hoverElemRect) {
-        const rect = el.getBoundingClientRect();
-        setIsHovering(true);
-        gsap.to(jellyRef.current, {
-          rotate: 0,
-          duration: 0,
-        });
-        gsap.to(jellyRef.current, {
-          width: el.offsetWidth + 20,
-          height: el.offsetHeight + 20,
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2,
-          borderRadius: 10,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.3)",
-        });
+   // Run on Mouse Move
+   useLayoutEffect(() => {
+     if (isMobile) return;
+     // Caluclate Everything Function
+     const setFromEvent = (e: MouseEvent) => {
+       if (!jellyRef.current) return;
+       if (!cursorMoved) {
+         setCursorMoved(true);
+       }
+       const el = e.target as HTMLElement;
+       const hoverElemRect = getRekt(el);
+       if (hoverElemRect) {
+         const rect = el.getBoundingClientRect();
+         setIsHovering(true);
+         gsap.to(jellyRef.current, {
+           rotate: 0,
+           duration: 0,
+         });
+         gsap.to(jellyRef.current, {
+           width: el.offsetWidth + 20,
+           height: el.offsetHeight + 20,
+           x: rect.left + rect.width / 2,
+           y: rect.top + rect.height / 2,
+           borderRadius: 10,
+           duration: 1.5,
+           ease: "elastic.out(1, 0.3)",
+         });
 
-        // return;
-      } else {
-        gsap.to(jellyRef.current, {
-          borderRadius: 50,
-          width: CURSOR_DIAMETER,
-          height: CURSOR_DIAMETER,
-        });
-        setIsHovering(false);
-      }
-      // Mouse X and Y
-      const x = e.clientX;
-      const y = e.clientY;
+         // return;
+       } else {
+         gsap.to(jellyRef.current, {
+           borderRadius: 50,
+           width: CURSOR_DIAMETER,
+           height: CURSOR_DIAMETER,
+         });
+         setIsHovering(false);
+       }
+       // Mouse X and Y
+       const x = e.clientX;
+       const y = e.clientY;
 
-      // Animate Position and calculate Velocity with GSAP
-      gsap.to(pos, {
-        x: x,
-        y: y,
-        duration: 1.5,
-        ease: "elastic.out(1, 0.5)",
-        onUpdate: () => {
-          // @ts-ignore
-          vel.x = (x - pos.x) * 1.2;
-          // @ts-ignore
-          vel.y = (y - pos.y) * 1.2;
-        },
-      });
+       // Animate Position and calculate Velocity with GSAP
+       gsap.to(pos, {
+         x: x,
+         y: y,
+         duration: 1.5,
+         ease: "elastic.out(1, 0.5)",
+         onUpdate: () => {
+           // @ts-ignore
+           vel.x = (x - pos.x) * 1.2;
+           // @ts-ignore
+           vel.y = (y - pos.y) * 1.2;
+         },
+       });
 
-      loop();
-    };
+       loop();
+     };
 
-    if (!isLoading) window.addEventListener("mousemove", setFromEvent);
-    return () => {
-      if (!isLoading) window.removeEventListener("mousemove", setFromEvent);
-    };
-  }, [isLoading]);
+     if (!isLoading) window.addEventListener("mousemove", setFromEvent);
+     return () => {
+       if (!isLoading) window.removeEventListener("mousemove", setFromEvent);
+     };
+    }, [isLoading, cursorMoved, loop, pos, set, vel, isMobile]);
 
   useEffect(() => {
     if (!jellyRef.current) return;

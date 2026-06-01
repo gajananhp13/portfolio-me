@@ -380,8 +380,8 @@ const projects: Project[] = [
           <TypographyH3 className="my-4 mt-8">Smart Recommendations</TypographyH3>
           <p className="font-mono mb-2">
             BeachRecs uses advanced recommendation algorithms to help you find the ideal
-             beach based on your preferences. Whether you&#39;re looking for surfing spots,
-             family-friendly beaches, or secluded getaways, we&#39;ve got you covered.
+              beach based on your preferences. Whether you&apos;re looking for surfing spots,
+              family-friendly beaches, or secluded getaways, we&apos;ve got you covered.
           </p>
           <SlideShow
             images={[
