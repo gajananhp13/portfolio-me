@@ -111,7 +111,7 @@ const Cursor = ({
         // setShowText(false);
       }, timeToRead);
     }
-  }, [msgs]);
+  }, [msgs, socketId]);
 
   return (
     <motion.div

@@ -102,6 +102,7 @@ const FloatingDockDesktop = ({
   const timer = useRef<NodeJS.Timeout>();
   const controls = useAnimation();
   useEffect(() => {
+    const timerCurrent = timer.current;
     if (showHint) {
       controls.start({
         opacity: [0, 1, 1, 0],
@@ -120,8 +121,7 @@ const FloatingDockDesktop = ({
     }
     return () => {
       controls.stop();
-      const timerCurrent = timer.current;
-      clearInterval(timerCurrent);
+      if (timerCurrent) clearInterval(timerCurrent);
     };
   }, [showHint, controls]);
   return (

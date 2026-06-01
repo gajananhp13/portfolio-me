@@ -68,14 +68,20 @@ export const ModalBody = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const { open } = useModal();
+  const { open, setOpen } = useModal();
 
    useEffect(() => {
+     const handleKeyDown = (e: KeyboardEvent) => {
+       if (e.key === "Escape") setOpen(false);
+     };
      if (typeof window !== "undefined") {
-       document.addEventListener("keydown", (e) => {
-         if (e.key === "Escape") setOpen(false);
-       });
+       document.addEventListener("keydown", handleKeyDown);
      }
+     return () => {
+       if (typeof window !== "undefined") {
+         document.removeEventListener("keydown", handleKeyDown);
+       }
+     };
    }, [setOpen]);
    useEffect(() => {
      if (open) {
@@ -86,7 +92,6 @@ export const ModalBody = ({
    }, [open]);
 
   const modalRef = useRef(null);
-  const { setOpen } = useModal();
   useOutsideClick(modalRef, () => setOpen(false));
 
   return (
